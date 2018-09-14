@@ -4,7 +4,7 @@ def selectGameType():
     selectedMode = 0
     while selectedMode > 5 or selectedMode < 1:
         try:
-            selectedMode = int(input("Input:"))
+            selectedMode = int(input("Input mode:"))
         except ValueError:
             print("Please type in a number")
             continue
