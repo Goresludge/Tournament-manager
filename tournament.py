@@ -37,6 +37,8 @@ if mode == 2:
 if mode == 3:
     print("CPU vs CPU")
 if mode == 4:
-    print("Round robin tournament")
+    print("Round robin tournament selected")
+    players = inputPlayers()
 if mode == 5:
-    print("Elimination tournament")
+    print("Elimination tournament selected")
+    players = inputPlayers()
