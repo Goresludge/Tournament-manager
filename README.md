@@ -1,3 +1,3 @@
 # Tournament-manager
 
-empty right now
+requires python 3+
