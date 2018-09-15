@@ -17,6 +17,7 @@ def newPlayerClass(players):
         playerNo = x
         name = input("Input name for player " + str(x) + ":")
         cpu = selectCpu()
+        print(cpu)
         if cpu == True:
             cpuLevel = selectCpuLevel()
         else:
@@ -26,11 +27,11 @@ def newPlayerClass(players):
 
 def selectCpu():
     selection = ""
-    while selection != "y":
+    while (selection != "y" and selection != "Y" and selection != "n" and selection != "N"):
         selection = input("CPU controlled(y or n)?")
-        if selection == "y" or "Y":
+        if (selection == "y" or selection == "Y"):
             cpu = True
-        if selection == "n" or "N":
+        if (selection == "n" or selection == "N"):
             cpu = False
     return cpu
 
