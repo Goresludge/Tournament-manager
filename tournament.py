@@ -8,21 +8,27 @@ class Player:
         self.cpuLevel = cpuLevel
         self.points = points
     def displayPlayer(self):
-        print ("Name: ", self.name, ", CPU controlled: ", self.cpu, ", CPU level: ", self.cpuLevel, "Points: ", self.points)
+        print (str(self.playerNo)+".", "Name: ", self.name, ", CPU level: ", self.cpuLevel, "Points: ", self.points)
 
-
-def newPlayerClass(players):
-    player = {}
+def newPlayerClass(players, mode):
     for x in range(1,players+1):
         playerNo = x
         name = input("Input name for player " + str(x) + ":")
-        cpu = selectCpu()
-        print(cpu)
-        if cpu == True:
-            cpuLevel = selectCpuLevel()
-        else:
-            cpuLevel = 0
+        cpu = False
+        cpuLevel = 0
         points = 0
+        if(mode == 2 and x == 2):
+            cpu = True
+            cpuLevel = selectCpuLevel()
+        if(mode == 3):
+            cpu = True
+            cpuLevel = selectCpuLevel()
+        if(mode == 4 or mode == 5):
+            cpu = selectCpu()
+            if cpu == True:
+                cpuLevel = selectCpuLevel()
+        if(cpu == True):
+            name = name + "(CPU)"
         player[x] = Player(playerNo,name,cpu,cpuLevel,points)
 
 def selectCpu():
@@ -80,17 +86,27 @@ def startMenu():
 
     if mode == 1:
         print("Player vs player")
+        newPlayerClass(2,mode)
+        print(player[1].name)
+        print(player[2].name)
     if mode == 2:
         print("Player vs CPU")
+        newPlayerClass(2,mode)
+        print(player[1].name)
+        print(player[2].name, "Difficulty:",player[2].cpuLevel)
     if mode == 3:
         print("CPU vs CPU")
+        newPlayerClass(2,mode)
+        print(player[1].name, "Difficulty:",player[1].cpuLevel)
+        print(player[2].name, "Difficulty:",player[2].cpuLevel)
     if mode == 4:
         print("Round robin tournament selected")
         players = inputPlayers()
-        newPlayerClass(players)
+        newPlayerClass(players,mode)
     if mode == 5:
         print("Elimination tournament selected")
         players = inputPlayers()
-        newPlayerClass(players)
+        newPlayerClass(players,mode)
 
+player = {}
 startMenu()
