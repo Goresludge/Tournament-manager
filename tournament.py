@@ -1,20 +1,21 @@
 #!/usr/bin/python3
 
 class Player:
-    def __init__(self, playerNo, name, cpu, cpuLevel,points):
+    def __init__(self, playerNo, name, gamesPlayed, cpu, cpuLevel,points):
         self.playerNo = playerNo
         self.name = name
+        self.gamesPlayed = gamesPlayed
         self.cpu = cpu
         self.cpuLevel = cpuLevel
         self.points = points
-        aList = [playerNo,name,cpu,cpuLevel,points]
+        aList = [playerNo,name,gamesPlayed,cpu,cpuLevel,points]
         self.info = aList
     def __getitem__(self,index):
         return self.info[index]
     def __repr__(self):
-        return repr((self.playerNo,self.name, self.cpu, self.cpuLevel,self.points))
+        return repr((self.playerNo,self.name,self.gamesPlayed, self.cpu, self.cpuLevel,self.points))
     def displayPlayer(self):
-        print (str(self.playerNo)+".", "Name: ", self.name, ", CPU level: ", self.cpuLevel, "Points: ", self.points)
+        print (str(self.playerNo)+".", "Name: ", self.name,", Games played",self.gamesPlayed, ", CPU level: ", self.cpuLevel, "Points: ", self.points)
     def displayName(self):
         return self.name
 
@@ -25,15 +26,39 @@ def sortRoundRobinTable():
         list.append(players[x])
         x += 1
     list = sorted(list, key=lambda player: player.points, reverse=True)
+    return list
+
+def printRoundRobinTable():
+    list = sortRoundRobinTable()
     i = 1
+    width = 0
+    maxWidth = 4
     for x in list:
-        print(str(i)+".",str(x[1]),str(x[4]),"points")
+        width = len(str(x[1]))
+        if(maxWidth<width):
+            maxWidth = width
+    print("  ","Name".ljust(maxWidth),"| Played | Points")
+    for x in list:
+        print(str(i)+".",str(x[1]).ljust(maxWidth),"|  ",str(x[2]),"   |  ",str(x[5]))
         i += 1
+
+def inputName(x):
+    validName = False
+    while validName == False:
+        name = input("Input name for player " + str(x+1) + ":")
+        validName = True
+        if (len(name) > 20):
+            print("Please input a shorter name (less than 20 characters)")
+            validName = False
+        if (len(name) < 1):
+            validName = False
+    return name
 
 def newPlayerClass(num, mode):
     for x in range(0,num):
         playerNo = x
-        name = input("Input name for player " + str(x) + ":")
+        name = inputName(x)
+        gamesPlayed = 0
         cpu = False
         cpuLevel = 0
         points = 0
@@ -49,7 +74,7 @@ def newPlayerClass(num, mode):
                 cpuLevel = selectCpuLevel()
         if(cpu == True):
             name = name + "(CPU)"
-        players[x] = Player(playerNo,name,cpu,cpuLevel,points)
+        players[x] = Player(playerNo,name,gamesPlayed,cpu,cpuLevel,points)
 
 def selectCpu():
     selection = ""
@@ -127,16 +152,17 @@ def startMenu():
         print("Round robin tournament selected")
         numberOfPlayers = inputPlayers()
         newPlayerClass(numberOfPlayers,mode)
+        printRoundRobinTable()
     if mode == 5:
         print("Elimination tournament selected")
         numberOfPlayers = inputPlayers()
         newPlayerClass(numberOfPlayers,mode)
     if mode == 6:
         #Just a test mode
-        players[0] = Player(1,"test1",False,0,3)
-        players[1] = Player(2,"test2",False,0,1)
-        players[2] = Player(3,"test3",False,0,2)
-        players[3] = Player(4,"test4",False,0,0)
+        players[0] = Player(1,"test1",0,False,0,3)
+        players[1] = Player(2,"test2",0,False,0,1)
+        players[2] = Player(3,"test3",0,False,0,2)
+        players[3] = Player(4,"test4",0,False,0,0)
         sortRoundRobinTable()
 players = {}
 startMenu()
