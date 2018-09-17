@@ -8,16 +8,18 @@ class Player:
         self.cpu = cpu
         self.cpuLevel = cpuLevel
         self.points = points
-        aList = [playerNo,name,gamesPlayed,cpu,cpuLevel,points]
-        self.info = aList
+        self.info = [playerNo,name,gamesPlayed,cpu,cpuLevel,points]
     def __getitem__(self,index):
         return self.info[index]
     def __repr__(self):
         return repr((self.playerNo,self.name,self.gamesPlayed, self.cpu, self.cpuLevel,self.points))
     def displayPlayer(self):
         print (str(self.playerNo)+".", "Name: ", self.name,", Games played",self.gamesPlayed, ", CPU level: ", self.cpuLevel, "Points: ", self.points)
-    def displayName(self):
-        return self.name
+    def updatePlayer(self,point):
+        self.points += point
+        self.gamesPlayed += 1
+        self.info[2] = self.gamesPlayed
+        self.info[5] = self.points
 
 def sortRoundRobinTable():
     list = []
@@ -78,7 +80,7 @@ def newPlayerClass(num, mode):
             if cpu == True:
                 cpuLevel = selectCpuLevel()
         if(cpu == True):
-            name = name + "(CPU)"
+            name = name + "(CPU"+ str(cpuLevel)+")"
         players[x] = Player(playerNo,name,gamesPlayed,cpu,cpuLevel,points)
 
 def selectCpu():
@@ -165,9 +167,9 @@ def startMenu():
     if mode == 6:
         #Just a test mode
         players[0] = Player(1,"test1",0,False,0,3)
-        players[1] = Player(2,"test2",0,False,0,1)
-        players[2] = Player(3,"test3",0,False,0,2)
-        players[3] = Player(4,"test4",0,False,0,0)
-        sortRoundRobinTable()
+        players[0].updatePlayer(3)
+        players[0].updatePlayer(3)
+        players[0].updatePlayer(3)
+        printRoundRobinTable()
 players = {}
 startMenu()
