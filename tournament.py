@@ -8,7 +8,7 @@ class Player:
         self.cpu = cpu
         self.cpuLevel = cpuLevel
         self.points = points
-        self.info = [playerNo,name,gamesPlayed,cpu,cpuLevel,points]
+        self.info = [playerNo, name, gamesPlayed, cpu, cpuLevel,points]
     def __getitem__(self,index):
         return self.info[index]
     def __repr__(self):
@@ -18,8 +18,15 @@ class Player:
     def updatePlayer(self,point):
         self.points += point
         self.gamesPlayed += 1
-        self.info[2] = self.gamesPlayed
-        self.info[5] = self.points
+
+def simulateGame(player1,player2):
+    print(player1)
+    print(player2)
+    return 0
+
+def nextGameRoundRobin():
+    list = sorted(players, key=lambda player: player.gamesPlayed)
+    simulateGame(list[0],list[1])
 
 def sortRoundRobinTable():
     list = sorted(players, key=lambda player: player.points, reverse=True)
@@ -30,14 +37,15 @@ def printRoundRobinTable():
     i = 1
     width = 0
     maxWidth = 4
-    for x in list:
-        print(x)
-        width = len(str(x[1]))
+    for elem in list:
+        x = elem[0]
+        width = len(players[x].name)
         if(maxWidth<width):
             maxWidth = width
     print("  ","Name".ljust(maxWidth),"| Played | Points")
-    for x in list:
-        print(str(i)+".",str(x[1]).ljust(maxWidth),"|  ",str(x[2]),"   |  ",str(x[5]))
+    for elem in list:
+        x = elem[0]
+        print(str(i)+".",players[x].name.ljust(maxWidth),"|  ",str(players[x].gamesPlayed),"   |  ",str(players[x].points))
         i += 1
 
 def inputName(x,nameList):
@@ -79,6 +87,8 @@ def newPlayerClass(num, mode):
             name = name + "(CPU"+ str(cpuLevel)+")"
         new_player = Player(playerNo,name,gamesPlayed,cpu,cpuLevel,points)
         players.append(new_player)
+
+    return players
 
 def selectCpu():
     selection = ""
@@ -156,18 +166,18 @@ def startMenu():
         print("Round robin tournament selected")
         numberOfPlayers = inputPlayers()
         newPlayerClass(numberOfPlayers,mode)
-        printRoundRobinTable()
+        setupRoundRobin(players)
     if mode == 5:
         print("Elimination tournament selected")
         numberOfPlayers = inputPlayers()
         newPlayerClass(numberOfPlayers,mode)
     if mode == 6:
         #Just a test mode
-        new_player = Player(1,"test1",0,False,0,3)
+        new_player = Player(0,"test1",1,False,0,3)
         players.append(new_player)
-        new_player = Player(2,"test2",0,False,0,5)
+        new_player = Player(1,"test2",3,False,0,5)
         players.append(new_player)
-        new_player = Player(3,"test3",0,False,0,1)
+        new_player = Player(2,"test3",1,False,0,1)
         players.append(new_player)
         printRoundRobinTable()
 players = []
