@@ -42,7 +42,7 @@ def printRoundRobinTable():
         print(str(i)+".",str(x[1]).ljust(maxWidth),"|  ",str(x[2]),"   |  ",str(x[5]))
         i += 1
 
-def inputName(x):
+def inputName(x,nameList):
     validName = False
     while validName == False:
         name = input("Input name for player " + str(x+1) + ":")
@@ -52,12 +52,17 @@ def inputName(x):
             validName = False
         if (len(name) < 1):
             validName = False
+        if name in nameList:
+            print("Someone already picked",name,"as their name")
+            validName = False
+    nameList.append(name)
     return name
 
 def newPlayerClass(num, mode):
+    list = []
     for x in range(0,num):
         playerNo = x
-        name = inputName(x)
+        name = inputName(x,list)
         gamesPlayed = 0
         cpu = False
         cpuLevel = 0
