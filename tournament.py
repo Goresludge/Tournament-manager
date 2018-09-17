@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+from random import shuffle
 
 class Player:
     def __init__(self, playerNo, name, gamesPlayed, cpu, cpuLevel,points):
@@ -20,13 +21,22 @@ class Player:
         self.gamesPlayed += 1
 
 def simulateGame(player1,player2):
-    print(player1)
-    print(player2)
-    return 0
 
-def nextGameRoundRobin():
-    list = sorted(players, key=lambda player: player.gamesPlayed)
-    simulateGame(list[0],list[1])
+    list = [player1,player2]
+    shuffle(list)
+    winner = list[0][0]
+    loser = list[1][0]
+    players[winner].updatePlayer(3)
+    players[loser].updatePlayer(0)
+
+def nextGameRoundRobin(num):
+    printRoundRobinTable()
+    totalGames = (num*((1+num)/2))-num
+    for x in range(0,int(totalGames)):
+        list = sorted(players, key=lambda player: player.gamesPlayed)
+        simulateGame(list[0],list[1])
+        printRoundRobinTable()
+        shuffle(list)
 
 def sortRoundRobinTable():
     list = sorted(players, key=lambda player: player.points, reverse=True)
@@ -173,12 +183,14 @@ def startMenu():
         newPlayerClass(numberOfPlayers,mode)
     if mode == 6:
         #Just a test mode
-        new_player = Player(0,"test1",1,False,0,3)
+        new_player = Player(0,"test1",0,False,0,0)
         players.append(new_player)
-        new_player = Player(1,"test2",3,False,0,5)
+        new_player = Player(1,"test2",0,False,0,0)
         players.append(new_player)
-        new_player = Player(2,"test3",1,False,0,1)
+        new_player = Player(2,"test3",0,False,0,0)
         players.append(new_player)
-        printRoundRobinTable()
+        new_player = Player(3,"test4",0,False,0,0)
+        players.append(new_player)
+        nextGameRoundRobin(4)
 players = []
 startMenu()
