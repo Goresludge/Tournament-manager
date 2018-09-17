@@ -22,12 +22,7 @@ class Player:
         self.info[5] = self.points
 
 def sortRoundRobinTable():
-    list = []
-    x = 0
-    for player in players:
-        list.append(players[x])
-        x += 1
-    list = sorted(list, key=lambda player: player.points, reverse=True)
+    list = sorted(players, key=lambda player: player.points, reverse=True)
     return list
 
 def printRoundRobinTable():
@@ -36,6 +31,7 @@ def printRoundRobinTable():
     width = 0
     maxWidth = 4
     for x in list:
+        print(x)
         width = len(str(x[1]))
         if(maxWidth<width):
             maxWidth = width
@@ -81,7 +77,8 @@ def newPlayerClass(num, mode):
                 cpuLevel = selectCpuLevel()
         if(cpu == True):
             name = name + "(CPU"+ str(cpuLevel)+")"
-        players[x] = Player(playerNo,name,gamesPlayed,cpu,cpuLevel,points)
+        new_player = Player(playerNo,name,gamesPlayed,cpu,cpuLevel,points)
+        players.append(new_player)
 
 def selectCpu():
     selection = ""
@@ -166,10 +163,12 @@ def startMenu():
         newPlayerClass(numberOfPlayers,mode)
     if mode == 6:
         #Just a test mode
-        players[0] = Player(1,"test1",0,False,0,3)
-        players[0].updatePlayer(3)
-        players[0].updatePlayer(3)
-        players[0].updatePlayer(3)
+        new_player = Player(1,"test1",0,False,0,3)
+        players.append(new_player)
+        new_player = Player(2,"test2",0,False,0,5)
+        players.append(new_player)
+        new_player = Player(3,"test3",0,False,0,1)
+        players.append(new_player)
         printRoundRobinTable()
-players = {}
+players = []
 startMenu()
