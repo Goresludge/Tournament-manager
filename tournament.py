@@ -83,7 +83,7 @@ def newPlayerClass(num, mode):
         cpu = False
         cpuLevel = 0
         points = 0
-        if(mode == 2 and x == 2):
+        if(mode == 2 and x == 1):
             cpu = True
             cpuLevel = selectCpuLevel()
         if(mode == 3):
@@ -166,17 +166,17 @@ def startMenu():
         print("Player vs CPU")
         newPlayerClass(2,mode)
         print("1.",players[0].name)
-        print("2.",players[1].name, "Difficulty:",player[1].cpuLevel)
+        print("2.",players[1].name)
     if mode == 3:
         print("CPU vs CPU")
         newPlayerClass(2,mode)
-        print("1.",players[0].name, "Difficulty:",player[0].cpuLevel)
-        print("2,",players[1].name, "Difficulty:",player[1].cpuLevel)
+        print("1.",players[0].name)
+        print("2,",players[1].name)
     if mode == 4:
         print("Round robin tournament selected")
         numberOfPlayers = inputPlayers()
         newPlayerClass(numberOfPlayers,mode)
-        setupRoundRobin(players)
+        printRoundRobinTable()
     if mode == 5:
         print("Elimination tournament selected")
         numberOfPlayers = inputPlayers()
