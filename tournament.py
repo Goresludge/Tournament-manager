@@ -20,31 +20,32 @@ class Player:
         self.points += point
         self.gamesPlayed += 1
 
-def simulateGame(player1,player2):
+def simulateGame(list):
 
-    list = [player1,player2]
     shuffle(list)
     winner = list[0][0]
     loser = list[1][0]
     players[winner].updatePlayer(3)
     players[loser].updatePlayer(0)
+    print(players[winner].name,"won!")
 
 def nextGameRoundRobin(num):
+    list = []
+    allGames = []
     printRoundRobinTable()
-    totalGames = (num*((1+num)/2))-num
-    for x in range(0,int(totalGames)):
-        list = sorted(players, key=lambda player: player.gamesPlayed)
-        simulateGame(list[0],list[1])
-        printRoundRobinTable()
-        shuffle(list)
-
-def sortRoundRobinTable():
-    list = sorted(players, key=lambda player: player.points, reverse=True)
-    return list
-
-def printRoundRobinTable():
-    list = sortRoundRobinTable()
+    totalGames = int((num*((1+num)/2))-num)
     i = 1
+    for x in range(0,num-1):
+        for y in range(i,num):
+            list = [players[x],players[y]]
+            allGames.append(list)
+        i += 1
+    shuffle(allGames)
+    for x in range(0,totalGames):
+        simulateGame(allGames[x])
+        printRoundRobinTable()
+    
+def nameWidth(list):
     width = 0
     maxWidth = 4
     for elem in list:
@@ -52,6 +53,12 @@ def printRoundRobinTable():
         width = len(players[x].name)
         if(maxWidth<width):
             maxWidth = width
+    return maxWidth
+
+def printRoundRobinTable():
+    list = sorted(players, key=lambda player: player.points, reverse=True)
+    i = 1
+    maxWidth = nameWidth(list)
     print("  ","Name".ljust(maxWidth),"| Played | Points")
     for elem in list:
         x = elem[0]
@@ -176,7 +183,7 @@ def startMenu():
         print("Round robin tournament selected")
         numberOfPlayers = inputPlayers()
         newPlayerClass(numberOfPlayers,mode)
-        printRoundRobinTable()
+        nextGameRoundRobin(numberOfPlayers)
     if mode == 5:
         print("Elimination tournament selected")
         numberOfPlayers = inputPlayers()
@@ -191,6 +198,14 @@ def startMenu():
         players.append(new_player)
         new_player = Player(3,"test4",0,False,0,0)
         players.append(new_player)
-        nextGameRoundRobin(4)
+        new_player = Player(4,"test5",0,False,0,0)
+        players.append(new_player)
+        new_player = Player(5,"test6",0,False,0,0)
+        players.append(new_player)
+        new_player = Player(6,"test7",0,False,0,0)
+        players.append(new_player)
+        new_player = Player(7,"test8",0,False,0,0)
+        players.append(new_player)
+        nextGameRoundRobin(8)
 players = []
 startMenu()
