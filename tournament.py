@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 from random import shuffle
+import random
 
 class Player:
     def __init__(self, playerNo, name, gamesPlayed, cpu, cpuLevel,points):
@@ -22,12 +23,19 @@ class Player:
 
 def simulateGame(list):
 
-    shuffle(list)
-    winner = list[0][0]
-    loser = list[1][0]
-    players[winner].updatePlayer(3)
-    players[loser].updatePlayer(0)
-    print(players[winner].name,"won!")
+    if(random.randint(0,10)==7):
+        a = list[0][0] #gives playerNo
+        b = list[1][0]
+        print("It's a draw between",players[a].name,"and",players[b].name+"!")
+        players[a].updatePlayer(1)
+        players[b].updatePlayer(1)
+    else:
+        shuffle(list)
+        winner = list[0][0]
+        loser = list[1][0]
+        players[winner].updatePlayer(3)
+        players[loser].updatePlayer(0)
+        print(players[winner].name,"won!")
 
 def nextGameRoundRobin(num):
     list = []
@@ -42,9 +50,10 @@ def nextGameRoundRobin(num):
         i += 1
     shuffle(allGames)
     for x in range(0,totalGames):
+        print("Round",x+1)
         simulateGame(allGames[x])
         printRoundRobinTable()
-    
+
 def nameWidth(list):
     width = 0
     maxWidth = 4
