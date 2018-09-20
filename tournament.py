@@ -2,166 +2,191 @@
 from random import shuffle
 import random
 
+
 class Player:
-    def __init__(self, playerNo, name, gamesPlayed, cpu, cpuLevel,points):
-        self.playerNo = playerNo
+    def __init__(self, player_no, name, games_played, cpu, cpu_level, points):
+        self.player_no = player_no
         self.name = name
-        self.gamesPlayed = gamesPlayed
+        self.games_played = games_played
         self.cpu = cpu
-        self.cpuLevel = cpuLevel
+        self.cpu_level = cpu_level
         self.points = points
-        self.info = [playerNo, name, gamesPlayed, cpu, cpuLevel,points]
-    def __getitem__(self,index):
+        self.info = [player_no, name, games_played, cpu, cpu_level, points]
+
+    def __getitem__(self, index):
         return self.info[index]
+
     def __repr__(self):
-        return repr((self.playerNo,self.name,self.gamesPlayed, self.cpu, self.cpuLevel,self.points))
-    def displayPlayer(self):
-        print (str(self.playerNo)+".", "Name: ", self.name,", Games played",self.gamesPlayed, ", CPU level: ", self.cpuLevel, "Points: ", self.points)
-    def updatePlayer(self,point):
+        return repr((self.player_no, self.name, self.games_played, self.cpu, self.cpu_level, self.points))
+
+    def display_player(self):
+        print(str(self.player_no) + ".", "Name: ", self.name, ", Games played", self.games_played,
+              ", CPU level: ", self.cpu_level, "Points: ", self.points)
+
+    def update_player(self, point):
         self.points += point
-        self.gamesPlayed += 1
+        self.games_played += 1
 
-def simulateGame(list):
 
-    if(random.randint(0,10)==7):
-        a = list[0][0] #gives playerNo
-        b = list[1][0]
-        print("It's a draw between",players[a].name,"and",players[b].name+"!")
-        players[a].updatePlayer(1)
-        players[b].updatePlayer(1)
+def simulate_game(list_input):
+
+    if random.randint(0, 10) == 7:
+        # gives player_no
+        a = list_input[0][0]
+        b = list_input[1][0]
+        print("It's a draw between", players[a].name, "and", players[b].name+"!")
+        players[a].update_player(1)
+        players[b].update_player(1)
     else:
-        shuffle(list)
-        winner = list[0][0]
-        loser = list[1][0]
-        players[winner].updatePlayer(3)
-        players[loser].updatePlayer(0)
-        print(players[winner].name,"won!")
+        shuffle(list_input)
+        winner = list_input[0][0]
+        loser = list_input[1][0]
+        players[winner].update_player(3)
+        players[loser].update_player(0)
+        print(players[winner].name, "won!")
 
-def nextGameRoundRobin(num):
-    list = []
-    allGames = []
-    printRoundRobinTable()
-    totalGames = int((num*((1+num)/2))-num)
+
+# Next Game Round Robin
+def next_game_rr(num):
+    # m_list = []
+    all_games = []
+    print_rr_table()
+    total_games = int((num*((1+num)/2))-num)
     i = 1
-    for x in range(0,num-1):
-        for y in range(i,num):
-            list = [players[x],players[y]]
-            allGames.append(list)
+    for x in range(0, num-1):
+        for y in range(i, num):
+            m_list = [players[x], players[y]]
+            all_games.append(m_list)
         i += 1
-    shuffle(allGames)
-    for x in range(0,totalGames):
-        print("Round",x+1)
-        simulateGame(allGames[x])
-        printRoundRobinTable()
+    shuffle(all_games)
+    for x in range(0, total_games):
+        print("Round", x+1)
+        simulate_game(all_games[x])
+        print_rr_table()
 
-def nameWidth(list):
-    width = 0
-    maxWidth = 4
-    for elem in list:
+
+def name_width(list_input):
+    max_width = 4
+    for elem in list_input:
         x = elem[0]
         width = len(players[x].name)
-        if(maxWidth<width):
-            maxWidth = width
-    return maxWidth
+        if max_width < width:
+            max_width = width
+    return max_width
 
-def printRoundRobinTable():
-    list = sorted(players, key=lambda player: player.points, reverse=True)
+
+def print_rr_table():
+    m_list = sorted(players, key=lambda player: player.points, reverse=True)
     i = 1
-    maxWidth = nameWidth(list)
-    print("  ","Name".ljust(maxWidth),"| Played | Points")
-    for elem in list:
+    max_width = name_width(m_list)
+    print("  ", "Name".ljust(max_width), "| Played | Points")
+    for elem in m_list:
         x = elem[0]
-        print(str(i)+".",players[x].name.ljust(maxWidth),"|  ",str(players[x].gamesPlayed),"   |  ",str(players[x].points))
+        print(str(i) + ".", players[x].name.ljust(max_width), "|  ",
+              str(players[x].games_played), "   |  ", str(players[x].points))
         i += 1
 
-def inputName(x,nameList):
-    validName = False
-    while validName == False:
+
+def input_name(x, name_list):
+    valid_name = False
+    while valid_name == False:
         name = input("Input name for player " + str(x+1) + ":")
-        validName = True
-        if (len(name) > 20):
+        valid_name = True
+        if len(name) > 20:
             print("Please input a shorter name (less than 20 characters)")
-            validName = False
-        if (len(name) < 1):
-            validName = False
-        if name in nameList:
+            valid_name = False
+        if len(name) < 1:
+            valid_name = False
+        if name in name_list:
             print("Someone already picked",name,"as their name")
-            validName = False
-    nameList.append(name)
+            valid_name = False
+    name_list.append(name)
     return name
 
-def newPlayerClass(num, mode):
-    list = []
-    for x in range(0,num):
-        playerNo = x
-        name = inputName(x,list)
-        gamesPlayed = 0
+
+def new_player_class(num, mode):
+    m_list = []
+    for x in range(0, num):
+        player_no = x
+        name = input_name(x, m_list)
+        games_played = 0
         cpu = False
-        cpuLevel = 0
+        cpu_level = 0
         points = 0
-        if(mode == 2 and x == 1):
+
+        if mode == 2 and x == 1:
             cpu = True
-            cpuLevel = selectCpuLevel()
-        if(mode == 3):
+            cpu_level = select_cpu_level()
+
+        if mode == 3:
             cpu = True
-            cpuLevel = selectCpuLevel()
-        if(mode == 4 or mode == 5):
-            cpu = selectCpu()
+            cpu_level = select_cpu_level()
+
+        if mode == 4 or mode == 5:
+            cpu = select_cpu()
             if cpu == True:
-                cpuLevel = selectCpuLevel()
-        if(cpu == True):
-            name = name + "(CPU"+ str(cpuLevel)+")"
-        new_player = Player(playerNo,name,gamesPlayed,cpu,cpuLevel,points)
+                cpu_level = select_cpu_level()
+
+        if cpu == True:
+            name = name + "(CPU" + str(cpu_level)+")"
+
+        new_player = Player(player_no, name, games_played, cpu, cpu_level, points)
         players.append(new_player)
 
     return players
 
-def selectCpu():
+
+def select_cpu():
     selection = ""
-    while (selection != "y" and selection != "Y" and selection != "n" and selection != "N"):
+    while selection != "y" and selection != "Y" and selection != "n" and selection != "N":
         selection = input("CPU controlled(y or n)?")
-        if (selection == "y" or selection == "Y"):
+        if selection == "y" or selection == "Y":
             cpu = True
-        if (selection == "n" or selection == "N"):
+
+        if selection == "n" or selection == "N":
             cpu = False
     return cpu
 
-def selectCpuLevel():
-    cpuLevel = 0
-    while cpuLevel > 3 or cpuLevel < 1:
+
+def select_cpu_level():
+    cpu_level = 0
+    while cpu_level > 3 or cpu_level < 1:
         try:
-            cpuLevel = int(input("Input CPU difficulty (1-3):"))
+            cpu_level = int(input("Input CPU difficulty (1-3):"))
         except ValueError:
             print("Please type in a number")
             continue
 
-    return cpuLevel
+    return cpu_level
 
-def selectGameType():
-    selectedMode = 0
-    while selectedMode > 6 or selectedMode < 1:
+
+def select_game_type():
+    selected_mode = 0
+    while selected_mode > 6 or selected_mode < 1:
         try:
-            selectedMode = int(input("Input mode:"))
-            if(selectedMode > 5 or selectedMode < 1):
+            selected_mode = int(input("Input mode:"))
+            if selected_mode > 5 or selected_mode < 1:
                 print("Input a number between 1 and 5")
         except ValueError:
             print("Please type in a number")
             continue
-    return selectedMode
+    return selected_mode
 
-def inputPlayers():
-    numberOfPlayers = 0
-    while numberOfPlayers > 8 or numberOfPlayers < 3:
+
+def input_players():
+    no_of_players = 0
+    while no_of_players > 8 or no_of_players < 3:
         try:
-            numberOfPlayers = int(input("How many players (between 3 and 8)? "))
-            if(numberOfPlayers > 5 or numberOfPlayers < 1):
+            no_of_players = int(input("How many players (between 3 and 8)? "))
+            if no_of_players > 5 or no_of_players < 1:
                 print("Input a number between 3 and 8")
         except ValueError:
             print("Please type in a number")
             continue
-    return numberOfPlayers
+    return no_of_players
 
-def startMenu():
+
+def start_menu():
 
     print("Welcome to <insert game name>!")
     print("Please input a game mode")
@@ -171,50 +196,57 @@ def startMenu():
     print("4. Round robin tournament")
     print("5. Elimination tournament")
 
-    mode = selectGameType()
+    mode = select_game_type()
 
     if mode == 1:
         print("Player vs player")
-        newPlayerClass(2,mode)
-        print("1.",players[0].name)
-        print("2.",players[1].name)
+        new_player_class(2, mode)
+        print("1.", players[0].name)
+        print("2.", players[1].name)
+
     if mode == 2:
         print("Player vs CPU")
-        newPlayerClass(2,mode)
-        print("1.",players[0].name)
-        print("2.",players[1].name)
+        new_player_class(2, mode)
+        print("1.", players[0].name)
+        print("2.", players[1].name)
+
     if mode == 3:
         print("CPU vs CPU")
-        newPlayerClass(2,mode)
-        print("1.",players[0].name)
-        print("2,",players[1].name)
+        new_player_class(2, mode)
+        print("1.", players[0].name)
+        print("2,", players[1].name)
+
     if mode == 4:
         print("Round robin tournament selected")
-        numberOfPlayers = inputPlayers()
-        newPlayerClass(numberOfPlayers,mode)
-        nextGameRoundRobin(numberOfPlayers)
+        no_of_players = input_players()
+        new_player_class(no_of_players, mode)
+        next_game_rr(no_of_players)
+
     if mode == 5:
         print("Elimination tournament selected")
-        numberOfPlayers = inputPlayers()
-        newPlayerClass(numberOfPlayers,mode)
+        no_of_players = input_players()
+        new_player_class(no_of_players, mode)
+
     if mode == 6:
-        #Just a test mode
-        new_player = Player(0,"test1",0,False,0,0)
+        # Just a test mode
+        new_player = Player(0, "test1", 0, False, 0, 0)
         players.append(new_player)
-        new_player = Player(1,"test2",0,False,0,0)
+        new_player = Player(1, "test2", 0, False, 0, 0)
         players.append(new_player)
-        new_player = Player(2,"test3",0,False,0,0)
+        new_player = Player(2, "test3", 0, False, 0, 0)
         players.append(new_player)
-        new_player = Player(3,"test4",0,False,0,0)
+        new_player = Player(3, "test4", 0, False, 0, 0)
         players.append(new_player)
-        new_player = Player(4,"test5",0,False,0,0)
+        new_player = Player(4, "test5", 0, False, 0, 0)
         players.append(new_player)
-        new_player = Player(5,"test6",0,False,0,0)
+        new_player = Player(5, "test6", 0, False, 0, 0)
         players.append(new_player)
-        new_player = Player(6,"test7",0,False,0,0)
+        new_player = Player(6, "test7", 0, False, 0, 0)
         players.append(new_player)
-        new_player = Player(7,"test8",0,False,0,0)
+        new_player = Player(7, "test8", 0, False, 0, 0)
         players.append(new_player)
-        nextGameRoundRobin(8)
+        next_game_rr(8)
+
+
 players = []
-startMenu()
+start_menu()
