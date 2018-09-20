@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+from operator import itemgetter, attrgetter
 from random import shuffle
 import random
 
@@ -11,10 +12,13 @@ class Player:
         self.cpu = cpu
         self.cpu_level = cpu_level
         self.points = points
-        self.info = [player_no, name, games_played, cpu, cpu_level, points]
+        self.data = [player_no, name, games_played, cpu, cpu_level, points]
 
     def __getitem__(self, index):
-        return self.info[index]
+        return self.data[index]
+
+    def __setitem__(self, index, value):
+        self.data[index] = value
 
     def __repr__(self):
         return repr((self.player_no, self.name, self.games_played, self.cpu, self.cpu_level, self.points))
@@ -45,7 +49,6 @@ def simulate_game(list_input):
         players[loser].update_player(0)
         print(players[winner].name, "won!")
 
-
 # Next Game Round Robin
 def next_game_rr(num):
     # m_list = []
@@ -61,9 +64,21 @@ def next_game_rr(num):
     shuffle(all_games)
     for x in range(0, total_games):
         print("Round", x+1)
-        simulate_game(all_games[x])
+        updated_list = update_list(all_games,total_games)
+        sorted_list = sort_played(all_games)
+        simulate_game(sorted_list[0])
         print_rr_table()
 
+
+def update_list(list_input,num):
+    for x in range(0,num):
+        list_input[x][0][2] = players[list_input[x][0][0]].games_played
+        list_input[x][1][2] = players[list_input[x][1][0]].games_played
+    return list_input
+
+def sort_played(list_input):
+    sorted_list = sorted(list_input, key=lambda x: (x[0][2],x[1][2]))
+    return sorted_list
 
 def name_width(list_input):
     max_width = 4
