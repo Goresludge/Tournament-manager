@@ -69,7 +69,6 @@ def next_game_rr(num):
         sorted_list = sort_played(sorted_list)
         simulate_game(sorted_list[0])
         del sorted_list[0]
-        print(sorted_list)
         print_rr_table()
 
 
