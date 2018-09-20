@@ -62,16 +62,19 @@ def next_game_rr(num):
             all_games.append(m_list)
         i += 1
     shuffle(all_games)
+    sorted_list = sort_played(all_games)
     for x in range(0, total_games):
         print("Round", x+1)
-        updated_list = update_list(all_games,total_games)
-        sorted_list = sort_played(all_games)
+        updated_list = update_list(sorted_list)
+        sorted_list = sort_played(sorted_list)
         simulate_game(sorted_list[0])
+        del sorted_list[0]
+        print(sorted_list)
         print_rr_table()
 
 
-def update_list(list_input,num):
-    for x in range(0,num):
+def update_list(list_input):
+    for x in range(0,len(list_input)):
         list_input[x][0][2] = players[list_input[x][0][0]].games_played
         list_input[x][1][2] = players[list_input[x][1][0]].games_played
     return list_input
