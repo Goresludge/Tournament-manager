@@ -49,6 +49,7 @@ def simulate_game(list_input):
         players[loser].update_player(0)
         print(players[winner].name, "won!")
 
+
 # Next Game Round Robin
 def next_game_rr(num):
     # m_list = []
@@ -72,15 +73,46 @@ def next_game_rr(num):
         print_rr_table()
 
 
+# Generate Elimination Tournament
+def elim_tourney(num):
+    total_games = 0
+    player_list = players
+    while total_games < num-1:
+        player_list, total_games = play_next_round(player_list, total_games)
+    return player_list
+
+
+def play_next_round(player_list, total_games):
+    i = 0
+    next_round = []
+    while i < len(player_list):
+
+        try:
+            m_list = [players[i], players[i+1]]
+            simulate_game(m_list)
+            total_games = total_games + 1
+            if players[i][5] > players[i+1][5]:
+                next_round.append(players[i])
+            else:
+                next_round.append(players[i+1])
+
+        except:
+            next_round.append(players[i])
+        i = i+2
+    return next_round, total_games
+
+
 def update_list(list_input):
     for x in range(0,len(list_input)):
         list_input[x][0][2] = players[list_input[x][0][0]].games_played
         list_input[x][1][2] = players[list_input[x][1][0]].games_played
     return list_input
 
+
 def sort_played(list_input):
-    sorted_list = sorted(list_input, key=lambda x: (x[0][2],x[1][2]))
+    sorted_list = sorted(list_input, key=lambda x: (x[0][2], x[1][2]))
     return sorted_list
+
 
 def name_width(list_input):
     max_width = 4
@@ -115,17 +147,17 @@ def input_name(x, name_list):
         if len(name) < 1:
             valid_name = False
         if name in name_list:
-            print("Someone already picked",name,"as their name")
+            print("Someone already picked", name, "as their name")
             valid_name = False
     name_list.append(name)
     return name
 
 
 def new_player_class(num, mode):
-    m_list = []
+    name_list = []
     for x in range(0, num):
         player_no = x
-        name = input_name(x, m_list)
+        name = input_name(x, name_list)
         games_played = 0
         cpu = False
         cpu_level = 0
@@ -145,7 +177,7 @@ def new_player_class(num, mode):
                 cpu_level = select_cpu_level()
 
         if cpu == True:
-            name = name + "(CPU" + str(cpu_level)+")"
+            name = name + "(CPU" + str(cpu_level) + ")"
 
         new_player = Player(player_no, name, games_played, cpu, cpu_level, points)
         players.append(new_player)
@@ -243,7 +275,8 @@ def start_menu():
         print("Elimination tournament selected")
         no_of_players = input_players()
         new_player_class(no_of_players, mode)
-
+        winner = elim_tourney(no_of_players)
+        print(winner[0][1], "won the tournament!")
     if mode == 6:
         # Just a test mode
         new_player = Player(0, "test1", 0, False, 0, 0)
