@@ -250,12 +250,14 @@ def start_menu():
     if mode == 1:
         print("Player vs player")
         new_player_class(2, mode)
+        simulate_game(players)
         print("1.", players[0].name)
         print("2.", players[1].name)
 
     if mode == 2:
         print("Player vs CPU")
         new_player_class(2, mode)
+        simulate_game(players)
         print("1.", players[0].name)
         print("2.", players[1].name)
 
