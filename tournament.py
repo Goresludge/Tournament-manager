@@ -101,13 +101,23 @@ def play_next_round(player_list, total_games):
         i = i+2
     return next_round, total_games
 
+def print_t_table(list_input):
+    max_width = name_width(players) + 3
+    for x in range(0,list_input):
+        if(x % 2 != 0):
+            print("-VS-".ljust(max_width),"Winner"+"\n"+players[x].name)
+        else:
+            if(x+1 == list_input):
+                len(players[x].name)
+                print("\n\n"+players[x].name.ljust(max_width),"Winner")
+            else:
+                print("\n"+players[x].name)
 
 def update_list(list_input):
     for x in range(0,len(list_input)):
         list_input[x][0][2] = players[list_input[x][0][0]].games_played
         list_input[x][1][2] = players[list_input[x][1][0]].games_played
     return list_input
-
 
 def sort_played(list_input):
     sorted_list = sorted(list_input, key=lambda x: (x[0][2], x[1][2]))
@@ -281,15 +291,15 @@ def start_menu():
         print(winner[0][1], "won the tournament!")
     if mode == 6:
         # Just a test mode
-        new_player = Player(0, "test1", 0, False, 0, 0)
+        new_player = Player(0, "a", 0, False, 0, 0)
         players.append(new_player)
-        new_player = Player(1, "test2", 0, False, 0, 0)
+        new_player = Player(1, "b", 0, False, 0, 0)
         players.append(new_player)
-        new_player = Player(2, "test3", 0, False, 0, 0)
+        new_player = Player(2, "c", 0, False, 0, 0)
         players.append(new_player)
-        new_player = Player(3, "test4", 0, False, 0, 0)
+        new_player = Player(3, "d", 0, False, 0, 0)
         players.append(new_player)
-        new_player = Player(4, "test5", 0, False, 0, 0)
+        new_player = Player(4, "e", 0, False, 0, 0)
         players.append(new_player)
         new_player = Player(5, "test6", 0, False, 0, 0)
         players.append(new_player)
@@ -297,7 +307,7 @@ def start_menu():
         players.append(new_player)
         new_player = Player(7, "test8", 0, False, 0, 0)
         players.append(new_player)
-        next_game_rr(8)
+        print_t_table(5)
 
 
 players = []
