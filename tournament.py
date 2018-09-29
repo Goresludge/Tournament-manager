@@ -34,13 +34,17 @@ class Player:
 
 def simulate_game(list_input):
 
+    a = list_input[0][0]
+    b = list_input[1][0]
+
+    print("Next game will be between",players[a].name, "and", players[b].name+"!")
+
     if random.randint(0, 10) == 7:
         # gives player_no
-        a = list_input[0][0]
-        b = list_input[1][0]
         print("It's a draw between", players[a].name, "and", players[b].name+"!")
         players[a].update_player(1)
         players[b].update_player(1)
+        winner = b
     else:
         shuffle(list_input)
         winner = list_input[0][0]
@@ -48,6 +52,7 @@ def simulate_game(list_input):
         players[winner].update_player(3)
         players[loser].update_player(0)
         print(players[winner].name, "won!")
+    return players[winner]
 
 
 # Next Game Round Robin
@@ -77,19 +82,24 @@ def next_game_rr(num):
 def elim_tourney(num):
     total_games = 0
     player_list = players
+    table_list = []
+    for x in range(0,num-1):
+        table_list.append("Winner")
+    print_t_table(table_list,num)
     while total_games < num-1:
-        player_list, total_games = play_next_round(player_list, total_games)
+        player_list, total_games = play_next_round(player_list, total_games,table_list)
     return player_list
 
 
-def play_next_round(player_list, total_games):
+def play_next_round(player_list, total_games,table_list):
     i = 0
     next_round = []
     while i < len(player_list):
-
         try:
             m_list = [players[i], players[i+1]]
-            simulate_game(m_list)
+            winner = simulate_game(m_list)
+            table_list[i] = winner.name
+            print_t_table(table_list,len(player_list))
             total_games = total_games + 1
             if players[i][5] > players[i+1][5]:
                 next_round.append(players[i])
@@ -101,17 +111,26 @@ def play_next_round(player_list, total_games):
         i = i+2
     return next_round, total_games
 
-def print_t_table(list_input):
-    max_width = name_width(players) + 3
-    for x in range(0,list_input):
-        if(x % 2 != 0):
-            print("-VS-".ljust(max_width),"Winner"+"\n"+players[x].name)
-        else:
-            if(x+1 == list_input):
-                len(players[x].name)
-                print("\n\n"+players[x].name.ljust(max_width),"Winner")
-            else:
-                print("\n"+players[x].name)
+def print_t_table(m_list,list_input):
+    max_width = name_width(players)
+    if(list_input == 3):
+        print("\n##########\n")
+        print(players[0].name)
+        print("-VS-".ljust(max_width),m_list[0])
+        print(players[1].name)
+        print("-VS-".rjust(max_width+6)+m_list[1].rjust(max_width+3)+"\n")
+        print(players[2].name,players[2].name.rjust(max_width))
+        print("\n##########\n")
+    if(list_input == 4):
+        print("\n##########\n")
+        print(players[0].name)
+        print("-VS-".ljust(max_width),m_list[0])
+        print(players[1].name)
+        print("-VS-".rjust(max_width+6)+m_list[1].rjust(max_width+3)+"\n")
+        print(players[2].name)
+        print("-VS-".ljust(max_width),m_list[2])
+        print(players[3].name)
+        print("\n##########\n")
 
 def update_list(list_input):
     for x in range(0,len(list_input)):
@@ -291,23 +310,23 @@ def start_menu():
         print(winner[0][1], "won the tournament!")
     if mode == 6:
         # Just a test mode
-        new_player = Player(0, "a", 0, False, 0, 0)
+        new_player = Player(0, "Lars", 0, False, 0, 0)
         players.append(new_player)
-        new_player = Player(1, "b", 0, False, 0, 0)
+        new_player = Player(1, "Yeeeeeeeah", 0, False, 0, 0)
         players.append(new_player)
-        new_player = Player(2, "c", 0, False, 0, 0)
+        new_player = Player(2, "Cabbage", 0, False, 0, 0)
         players.append(new_player)
-        new_player = Player(3, "d", 0, False, 0, 0)
+        new_player = Player(3, "Rwar", 0, False, 0, 0)
         players.append(new_player)
-        new_player = Player(4, "e", 0, False, 0, 0)
-        players.append(new_player)
-        new_player = Player(5, "test6", 0, False, 0, 0)
-        players.append(new_player)
-        new_player = Player(6, "test7", 0, False, 0, 0)
-        players.append(new_player)
-        new_player = Player(7, "test8", 0, False, 0, 0)
-        players.append(new_player)
-        print_t_table(5)
+        #new_player = Player(4, "e", 0, False, 0, 0)
+        #players.append(new_player)
+        #new_player = Player(5, "test6", 0, False, 0, 0)
+        #players.append(new_player)
+        #new_player = Player(6, "test7", 0, False, 0, 0)
+        #players.append(new_player)
+        #new_player = Player(7, "test8", 0, False, 0, 0)
+        #players.append(new_player)
+        elim_tourney(4)
 
 
 players = []
