@@ -87,11 +87,11 @@ def elim_tourney(num):
         table_list.append("Winner")
     print_t_table(table_list,num)
     while total_games < num-1:
-        player_list, total_games = play_next_round(player_list, total_games,table_list)
+        player_list, total_games = play_next_round(player_list, total_games,table_list,num)
     return player_list
 
 
-def play_next_round(player_list, total_games,table_list):
+def play_next_round(player_list, total_games,table_list,num):
     i = 0
     next_round = []
     while i < len(player_list):
@@ -99,7 +99,7 @@ def play_next_round(player_list, total_games,table_list):
             m_list = [players[i], players[i+1]]
             winner = simulate_game(m_list)
             table_list[i] = winner.name
-            print_t_table(table_list,len(player_list))
+            print_t_table(table_list,num)
             total_games = total_games + 1
             if players[i][5] > players[i+1][5]:
                 next_round.append(players[i])
