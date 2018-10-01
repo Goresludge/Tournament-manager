@@ -116,7 +116,6 @@ def play_next_round(player_list, total_games,table_list,num):
 def print_t_table(m_list,list_input):
     max_width = name_width(players)
     if(list_input == 3):
-        print(m_list)
         print("\n##########\n")
         print(players[0].name)
         print("-VS-".ljust(max_width),m_list[0])
@@ -125,7 +124,6 @@ def print_t_table(m_list,list_input):
         print(players[2].name,players[2].name.rjust(max_width))
         print("\n##########\n")
     if(list_input == 4):
-        print(m_list)
         print("\n##########\n")
         print(players[0].name)
         print("-VS-".ljust(max_width),m_list[0])
@@ -136,7 +134,6 @@ def print_t_table(m_list,list_input):
         print(players[3].name)
         print("\n##########\n")
     if(list_input == 5):
-        print(m_list)
         print("\n##########\n")
         print(players[0].name)
         print("-VS-".ljust(max_width*2),m_list[0])
@@ -149,7 +146,6 @@ def print_t_table(m_list,list_input):
         print(players[4].name,players[4].name.rjust(max_width))
         print("\n##########\n")
     if(list_input == 6):
-        print(m_list)
         print("\n##########\n")
         print(players[0].name)
         print("-VS-".ljust(max_width),m_list[0])
@@ -163,6 +159,41 @@ def print_t_table(m_list,list_input):
         print("-VS-".ljust(max_width*2),m_list[2])
         print(players[5].name)
         print("\n##########\n")
+    if(list_input == 7):
+        print("\n##########\n")
+        print(players[0].name)
+        print("-VS-".ljust(max_width),m_list[0])
+        print(players[1].name+"\n")
+        print("-VS-".rjust(max_width+6)+m_list[3].rjust(max_width+1)+"\n")
+        print(players[2].name)
+        print("-VS-".ljust(max_width),m_list[1])
+        print(players[3].name)
+        print("-VS-".rjust(max_width*2+6)+m_list[5].rjust(max_width+1)+"\n")
+        print(players[4].name)
+        print("-VS-".ljust(max_width),m_list[2])
+        print(players[5].name)
+        print("-VS-".rjust(max_width+6)+m_list[4].rjust(max_width+1)+"\n")
+        print(players[6].name,players[6].name.rjust(max_width))
+        print("\n##########\n")
+    if(list_input == 8):
+        print("\n##########\n")
+        print(players[0].name)
+        print("-VS-".ljust(max_width),m_list[0])
+        print(players[1].name+"\n")
+        print("-VS-".rjust(max_width+6)+m_list[4].rjust(max_width+1)+"\n")
+        print(players[2].name)
+        print("-VS-".ljust(max_width),m_list[1])
+        print(players[3].name+"\n")
+        print("-VS-".rjust(max_width*2+6)+m_list[6].rjust(max_width+1)+"\n")
+        print(players[4].name)
+        print("-VS-".ljust(max_width),m_list[2])
+        print(players[5].name+"\n")
+        print("-VS-".rjust(max_width+6)+m_list[5].rjust(max_width+1)+"\n")
+        print(players[6].name)
+        print("-VS-".ljust(max_width),m_list[3])
+        print(players[7].name)
+        print("\n##########\n")
+
 
 def update_list(list_input):
     for x in range(0,len(list_input)):
@@ -355,11 +386,11 @@ def start_menu():
         players.append(new_player)
         new_player = Player(5, "test6", 0, False, 0, 0)
         players.append(new_player)
-        #new_player = Player(6, "test7", 0, False, 0, 0)
-        #players.append(new_player)
-        #new_player = Player(7, "test8", 0, False, 0, 0)
-        #players.append(new_player)
-        elim_tourney(6)
+        new_player = Player(6, "test7", 0, False, 0, 0)
+        players.append(new_player)
+        new_player = Player(7, "test8", 0, False, 0, 0)
+        players.append(new_player)
+        elim_tourney(8)
 
 
 players = []
