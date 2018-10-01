@@ -37,7 +37,7 @@ def simulate_game(list_input):
     a = list_input[0][0]
     b = list_input[1][0]
 
-    print("Next game will be between",players[a].name, "and", players[b].name+"!")
+    print("Next game will be between", players[a].name, "and", players[b].name+"!")
 
     if random.randint(0, 10) == 7:
         # gives player_no
@@ -83,35 +83,32 @@ def elim_tourney(num):
     total_games = 0
     player_list = players
     table_list = []
-    for x in range(0,num-1):
+    for x in range(0, num-1):
         table_list.append("Winner")
-    print_t_table(table_list,num)
+    print_t_table(table_list, num)
     while total_games < num-1:
-        player_list, total_games = play_next_round(player_list, total_games,table_list,num)
+        player_list, total_games = play_next_round(player_list, total_games, table_list, num)
     return player_list
 
 
-def play_next_round(player_list, total_games,table_list,num):
+def play_next_round(player_list, total_games, table_list, num):
     i = 0
     j = 0
     next_round = []
     while i < len(player_list):
         try:
-            m_list = [players[i], players[i+1]]
+            m_list = [players[player_list[i][0]], players[player_list[i+1][0]]]
             winner = simulate_game(m_list)
-            table_list[j] = winner.name
+            table_list[total_games] = winner.name
             print_t_table(table_list,num)
             total_games = total_games + 1
-            if players[i][5] > players[i+1][5]:
-                next_round.append(players[i])
-            else:
-                next_round.append(players[i+1])
-
+            next_round.append(players[winner[0]])
         except:
-            next_round.append(players[i])
+            next_round.append(players[player_list[i][0]])
         i = i+2
         j += 1
     return next_round, total_games
+
 
 def print_t_table(m_list,list_input):
     max_width = name_width(players)
