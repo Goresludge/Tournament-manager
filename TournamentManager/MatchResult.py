@@ -1,9 +1,7 @@
 class MatchResult:
-    def __init__(self, player, result, score):
+    def __init__(self, player):
         self.player = player
-        self.result = result
-        self.score = score
-        self.data = [player, result, score]
+        self.data = [player]
 
     def __getitem__(self, index):
         return self.data[index]
@@ -12,4 +10,4 @@ class MatchResult:
         self.data[index] = value
 
     def __repr__(self):
-        return repr((self.player, self.result, self.score))
+        return repr((self.player))

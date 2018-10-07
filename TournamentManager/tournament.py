@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 from operator import itemgetter, attrgetter
 from random import shuffle
+from GamePlatform.GameManager import GameManager
+from GamePlatform.TerminalRenderer import TerminalRenderer
 import random
 
 
@@ -73,7 +75,12 @@ def next_game_rr(num):
         print("Round", x+1)
         updated_list = update_list(sorted_list)
         sorted_list = sort_played(sorted_list)
-        simulate_game(sorted_list[0])
+
+        game_manager = GameManager(TerminalRenderer(), sorted_list[0])
+
+        game_manager.start_game()
+
+        # simulate_game(sorted_list[0])
         del sorted_list[0]
         print_rr_table()
 
@@ -98,7 +105,10 @@ def play_next_round(player_list, total_games, table_list, num):
     while i < len(player_list):
         try:
             m_list = [players[player_list[i][0]], players[player_list[i+1][0]]]
-            winner = simulate_game(m_list)
+
+            game_manager = GameManager(TerminalRenderer(), m_list)
+            winner = game_manager.start_game()
+
             table_list[total_games] = winner.name
             print_t_table(table_list,num)
             total_games = total_games + 1
@@ -340,22 +350,20 @@ def start_menu():
     if mode == 1:
         print("Player vs player")
         new_player_class(2, mode)
-        simulate_game(players)
-        print("1.", players[0].name)
-        print("2.", players[1].name)
+        game_manager = GameManager(TerminalRenderer(), players)
+        winner = game_manager.start_game()
 
     if mode == 2:
         print("Player vs CPU")
         new_player_class(2, mode)
-        simulate_game(players)
-        print("1.", players[0].name)
-        print("2.", players[1].name)
+        game_manager = GameManager(TerminalRenderer(), players)
+        winner = game_manager.start_game()
 
     if mode == 3:
         print("CPU vs CPU")
         new_player_class(2, mode)
-        print("1.", players[0].name)
-        print("2,", players[1].name)
+        game_manager = GameManager(TerminalRenderer(), players)
+        winner = game_manager.start_game()
 
     if mode == 4:
         print("Round robin tournament selected")

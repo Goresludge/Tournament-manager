@@ -1,5 +1,5 @@
 import unittest
-from tournament import Player
+from TournamentManager.tournament import Player
 
 
 class TestPlayerClassMethods(unittest.TestCase):
