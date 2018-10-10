@@ -4,6 +4,9 @@ from GamePlatform.Player import Player
 from GamePlatform.StdinController import StdinController
 from TournamentManager.MatchResult import MatchResult
 
+from GameEngine.ComputerController import ComputerController
+from time import sleep
+
 TURNS_FOR_DRAW = 400
 DEFAULT_STONES = 9
 
@@ -18,7 +21,10 @@ class GameManager:
         stone_type = "black"
         for tournament_player in tournament_players:
             player = Player(stone_type, tournament_player, DEFAULT_STONES)
-            player.set_controller(StdinController(player))
+            if(tournament_player.cpu == True):
+                player.set_controller(ComputerController(player, complexity = tournament_player.cpu_level))
+            else:
+                player.set_controller(StdinController(player))
             self.players.append(player)
             stone_type = "white"
 
@@ -37,6 +43,7 @@ class GameManager:
         winner = None
 
         while not is_game_over:
+            sleep(0.2) # For CPU Agains CPU
             if self.step_count > TURNS_FOR_DRAW:
                 winner = None
                 return winner
@@ -51,14 +58,13 @@ class GameManager:
 
             move = current_player.controller.make_move(self.board, self.phase)
             n_mills = detect_mill(self.board, move)
-            while n_mills > 0:
+            if n_mills > 0:
                 self.renderer.begin_render()
                 self.renderer.render_phase(self.phase)
                 self.renderer.print_player_stones(self.players)
                 self.renderer.render(self.board)
                 self.renderer.print_player_turn(current_player)
                 current_player.controller.remove_stone(self.board)
-                n_mills -= 1
 
             other_players = [
                 player for player in self.players

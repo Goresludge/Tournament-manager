@@ -11,6 +11,7 @@ class Controller(ABC):
 
     def perform_move(self, board, move):
         # Then we have placed a stone
+
         if move.new is not None and move.old is None:
             move.new.owner = self.player
 
