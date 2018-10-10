@@ -1,8 +1,6 @@
 #!/usr/bin/python3
 from operator import itemgetter, attrgetter
 from random import shuffle
-from GamePlatform.GameManager import GameManager
-from GamePlatform.TerminalRenderer import TerminalRenderer
 import random
 
 
@@ -29,10 +27,8 @@ class Player:
         print(str(self.player_no) + ".", "Name: ", self.name, ", Games played", self.games_played,
               ", CPU level: ", self.cpu_level, "Points: ", self.points)
 
-    def update_score(self, point):
+    def update_player(self, point):
         self.points += point
-
-    def update_played(self):
         self.games_played += 1
 
 
@@ -77,14 +73,7 @@ def next_game_rr(num):
         print("Round", x+1)
         updated_list = update_list(sorted_list)
         sorted_list = sort_played(sorted_list)
-
-        game_manager = GameManager(TerminalRenderer(), sorted_list[0])
-
-        winner = game_manager.start_game()
-        players[winner[0]].update_score(3)
-        players[sorted_list[0][0][0]].update_played()
-        players[sorted_list[0][1][0]].update_played()
-        # simulate_game(sorted_list[0])
+        simulate_game(sorted_list[0])
         del sorted_list[0]
         print_rr_table()
 
@@ -109,10 +98,7 @@ def play_next_round(player_list, total_games, table_list, num):
     while i < len(player_list):
         try:
             m_list = [players[player_list[i][0]], players[player_list[i+1][0]]]
-
-            game_manager = GameManager(TerminalRenderer(), m_list)
-            winner = game_manager.start_game()
-
+            winner = simulate_game(m_list)
             table_list[total_games] = winner.name
             print_t_table(table_list,num)
             total_games = total_games + 1
@@ -252,8 +238,7 @@ def input_name(x, name_list):
         if name in name_list:
             print("Someone already picked", name, "as their name")
             valid_name = False
-        if(name.isspace()):
-            valid_name = False
+        valid_name = not name.isspace()
     name_list.append(name)
     return name
 
@@ -355,20 +340,22 @@ def start_menu():
     if mode == 1:
         print("Player vs player")
         new_player_class(2, mode)
-        game_manager = GameManager(TerminalRenderer(), players)
-        winner = game_manager.start_game()
+        simulate_game(players)
+        print("1.", players[0].name)
+        print("2.", players[1].name)
 
     if mode == 2:
         print("Player vs CPU")
         new_player_class(2, mode)
-        game_manager = GameManager(TerminalRenderer(), players)
-        winner = game_manager.start_game()
+        simulate_game(players)
+        print("1.", players[0].name)
+        print("2.", players[1].name)
 
     if mode == 3:
         print("CPU vs CPU")
         new_player_class(2, mode)
-        game_manager = GameManager(TerminalRenderer(), players)
-        winner = game_manager.start_game()
+        print("1.", players[0].name)
+        print("2,", players[1].name)
 
     if mode == 4:
         print("Round robin tournament selected")
