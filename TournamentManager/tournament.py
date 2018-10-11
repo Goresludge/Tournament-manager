@@ -114,7 +114,7 @@ def play_next_round(player_list, total_games, table_list, num):
             winner = game_manager.start_game()
 
             table_list[total_games] = winner.name
-            print_t_table(table_list,num)
+            print_t_table(table_list, num)
             total_games = total_games + 1
             next_round.append(players[winner[0]])
         except:
@@ -124,84 +124,84 @@ def play_next_round(player_list, total_games, table_list, num):
     return next_round, total_games
 
 
-def print_t_table(m_list,list_input):
+def print_t_table(m_list, list_input):
     max_width = name_width(players)
     if(list_input == 3):
         print("\n##########\n")
         print(players[0].name)
-        print("-VS-".ljust(max_width),m_list[0])
+        print("-VS-".ljust(max_width), m_list[0])
         print(players[1].name)
         print("-VS-".rjust(max_width+6)+m_list[1].rjust(max_width+3)+"\n")
-        print(players[2].name,players[2].name.rjust(max_width))
+        print(players[2].name, players[2].name.rjust(max_width))
         print("\n##########\n")
     if(list_input == 4):
         print("\n##########\n")
         print(players[0].name)
-        print("-VS-".ljust(max_width),m_list[0])
+        print("-VS-".ljust(max_width), m_list[0])
         print(players[1].name+"\n")
         print("-VS-".rjust(max_width+6)+m_list[2].rjust(max_width+3)+"\n")
         print(players[2].name)
-        print("-VS-".ljust(max_width),m_list[1])
+        print("-VS-".ljust(max_width), m_list[1])
         print(players[3].name)
         print("\n##########\n")
     if(list_input == 5):
         print("\n##########\n")
         print(players[0].name)
-        print("-VS-".ljust(max_width*2),m_list[0])
+        print("-VS-".ljust(max_width*2), m_list[0])
         print(players[1].name+"\n\n")
         print("-VS-".rjust((max_width*2)+6)+m_list[2].rjust(max_width+1))
         print(players[2].name)
-        print("-VS-".ljust(max_width),m_list[1])
+        print("-VS-".ljust(max_width), m_list[1])
         print(players[3].name)
         print("-VS-".rjust(max_width+6)+m_list[3].rjust(max_width)+"\n")
-        print(players[4].name,players[4].name.rjust(max_width))
+        print(players[4].name, players[4].name.rjust(max_width))
         print("\n##########\n")
     if(list_input == 6):
         print("\n##########\n")
         print(players[0].name)
-        print("-VS-".ljust(max_width),m_list[0])
+        print("-VS-".ljust(max_width), m_list[0])
         print(players[1].name+"\n")
         print("-VS-".rjust(max_width+6)+m_list[3].rjust(max_width+1)+"\n")
         print(players[2].name)
-        print("-VS-".ljust(max_width),m_list[1])
+        print("-VS-".ljust(max_width), m_list[1])
         print(players[3].name)
         print("-VS-".rjust(max_width*2+6)+m_list[4].rjust(max_width+1)+"\n")
         print("\n\n"+players[4].name)
-        print("-VS-".ljust(max_width*2),m_list[2])
+        print("-VS-".ljust(max_width*2), m_list[2])
         print(players[5].name)
         print("\n##########\n")
     if(list_input == 7):
         print("\n##########\n")
         print(players[0].name)
-        print("-VS-".ljust(max_width),m_list[0])
+        print("-VS-".ljust(max_width), m_list[0])
         print(players[1].name+"\n")
         print("-VS-".rjust(max_width+6)+m_list[3].rjust(max_width+1)+"\n")
         print(players[2].name)
-        print("-VS-".ljust(max_width),m_list[1])
+        print("-VS-".ljust(max_width), m_list[1])
         print(players[3].name)
         print("-VS-".rjust(max_width*2+6)+m_list[5].rjust(max_width+1)+"\n")
         print(players[4].name)
-        print("-VS-".ljust(max_width),m_list[2])
+        print("-VS-".ljust(max_width), m_list[2])
         print(players[5].name)
         print("-VS-".rjust(max_width+6)+m_list[4].rjust(max_width+1)+"\n")
-        print(players[6].name,players[6].name.rjust(max_width))
+        print(players[6].name, players[6].name.rjust(max_width))
         print("\n##########\n")
     if(list_input == 8):
         print("\n##########\n")
         print(players[0].name)
-        print("-VS-".ljust(max_width),m_list[0])
+        print("-VS-".ljust(max_width), m_list[0])
         print(players[1].name+"\n")
         print("-VS-".rjust(max_width+6)+m_list[4].rjust(max_width+1)+"\n")
         print(players[2].name)
-        print("-VS-".ljust(max_width),m_list[1])
+        print("-VS-".ljust(max_width), m_list[1])
         print(players[3].name+"\n")
         print("-VS-".rjust(max_width*2+6)+m_list[6].rjust(max_width+1)+"\n")
         print(players[4].name)
-        print("-VS-".ljust(max_width),m_list[2])
+        print("-VS-".ljust(max_width), m_list[2])
         print(players[5].name+"\n")
         print("-VS-".rjust(max_width+6)+m_list[5].rjust(max_width+1)+"\n")
         print(players[6].name)
-        print("-VS-".ljust(max_width),m_list[3])
+        print("-VS-".ljust(max_width), m_list[3])
         print(players[7].name)
         print("\n##########\n")
 
@@ -211,6 +211,7 @@ def update_list(list_input):
         list_input[x][0][2] = players[list_input[x][0][0]].games_played
         list_input[x][1][2] = players[list_input[x][1][0]].games_played
     return list_input
+
 
 def sort_played(list_input):
     sorted_list = sorted(list_input, key=lambda x: (x[0][2], x[1][2]))
@@ -252,7 +253,7 @@ def input_name(x, name_list):
         if name in name_list:
             print("Someone already picked", name, "as their name")
             valid_name = False
-        if(name.isspace()):
+        if name.isspace():
             valid_name = False
     name_list.append(name)
     return name
