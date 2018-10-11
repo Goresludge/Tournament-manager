@@ -22,19 +22,69 @@ class TestMethods(unittest.TestCase):
             player.update_score(1)
         self.assertEqual(player.points, 5)
 
+    @patch('TournamentManager.tournament.select_game_type', return_value='1')
+    def test_game_type(self, input):
+        self.assertEqual(tt.select_game_type(), '1')
+
+    @patch('TournamentManager.tournament.select_game_type', return_value='2')
+    def test_game_type(self, input):
+        self.assertEqual(tt.select_game_type(), '2')
+
     @patch('TournamentManager.tournament.select_game_type', return_value='3')
-    # @patch('tt.select_game_type)
     def test_game_type(self, input):
         self.assertEqual(tt.select_game_type(), '3')
+
+    @patch('TournamentManager.tournament.select_game_type', return_value='4')
+    def test_game_type(self, input):
+        self.assertEqual(tt.select_game_type(), '4')
+
+    @patch('TournamentManager.tournament.select_game_type', return_value='5')
+    def test_game_type(self, input):
+        self.assertEqual(tt.select_game_type(), '5')
+
+    @patch('TournamentManager.tournament.input_players', return_value='3')
+    def test_input_players(self, input):
+        self.assertEqual(tt.input_players(), '3')
+
+    @patch('TournamentManager.tournament.input_players', return_value='3')
+    def test_input_players(self, input):
+        self.assertEqual(tt.input_players(), '4')
+
+    @patch('TournamentManager.tournament.input_players', return_value='5')
+    def test_input_players(self, input):
+        self.assertEqual(tt.input_players(), '5')
+
+    @patch('TournamentManager.tournament.input_players', return_value='6')
+    def test_input_players(self, input):
+        self.assertEqual(tt.input_players(), '6')
+
+    @patch('TournamentManager.tournament.input_players', return_value='7')
+    def test_input_players(self, input):
+        self.assertEqual(tt.input_players(), '7')
+
+    @patch('TournamentManager.tournament.input_players', return_value='8')
+    def test_input_players(self, input):
+        self.assertEqual(tt.input_players(), '8')
+
+    @patch('TournamentManager.tournament.select_cpu_level', return_value='1')
+    def test_select_cpu_level(self, input):
+        self.assertEqual(tt.select_cpu_level(), '1')
 
     @patch('TournamentManager.tournament.select_cpu_level', return_value='2')
     def test_select_cpu_level(self, input):
         self.assertEqual(tt.select_cpu_level(), '2')
 
+    @patch('TournamentManager.tournament.select_cpu_level', return_value='3')
+    def test_select_cpu_level(self, input):
+        self.assertEqual(tt.select_cpu_level(), '3')
+
     @patch('TournamentManager.tournament.select_cpu', return_value='True')
     def test_cpu_level(self, input):
         self.assertEqual(tt.select_cpu(), 'True')
 
+    @patch('TournamentManager.tournament.select_cpu', return_value='False')
+    def test_cpu_level(self, input):
+        self.assertEqual(tt.select_cpu(), 'False')
 
 if __name__ == '__main__':
     unittest.main()

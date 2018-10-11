@@ -6,6 +6,7 @@ import TournamentManager.tournament
 
 
 class IntegrationTests(unittest.TestCase):
+
     def test_player_list(self):
         player1 = Player(1, "arvid", 99, True, 3, 3)
         player2 = Player(1, "victor", 99, True, 3, 3)
