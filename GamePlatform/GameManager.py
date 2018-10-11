@@ -16,6 +16,7 @@ class GameManager:
         self.renderer = renderer
         self.players = []
         self.tournament_players = tournament_players
+        self.winner = None
 
         # Convert
         stone_type = "black"
@@ -37,6 +38,7 @@ class GameManager:
         winner = self.game_step()
         self.renderer.render_winner(winner)
         if winner is not None:
+            self.winner = winner.tournament_player
             return winner.tournament_player
         else:
             return None
