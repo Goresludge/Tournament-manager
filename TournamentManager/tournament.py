@@ -81,7 +81,11 @@ def next_game_rr(num):
         game_manager = GameManager(TerminalRenderer(), sorted_list[0])
 
         winner = game_manager.start_game()
-        players[winner[0]].update_score(3)
+        if(winner != None):
+            players[winner[0]].update_score(3)
+        else:
+            players[sorted_list[0][0][0]].update_score(1)
+            players[sorted_list[0][1][0]].update_score(1)
         players[sorted_list[0][0][0]].update_played()
         players[sorted_list[0][1][0]].update_played()
         # simulate_game(sorted_list[0])

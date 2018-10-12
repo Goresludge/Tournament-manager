@@ -88,30 +88,11 @@ class TestMethods(unittest.TestCase):
 
     def test_name_width(self):
 
-        player1 = Player(0, "Victor", 1, False, 1, 1)
-        player2 = Player(1, "ArvidLarsVictor", 2, True, 2, 2)
-        player3 = Player(2, "", 2, False, 1, 3)
-        player4 = Player(3, "------", 3, True, 2, 3)
-        player5 = Player(4, "a", 2, True, 2, 3)
-        player6 = Player(5, "-1", 1, True, 2, 3)
-
         players = []
 
         new_player = Player(0, "Test1", 0, False, 0, 0)
         players.append(new_player)
         new_player = Player(1, "TestingALongName", 0, False, 0, 0)
-        players.append(new_player)
-        new_player = Player(2, "test3", 0, False, 0, 0)
-        players.append(new_player)
-        new_player = Player(3, "test4", 0, False, 0, 0)
-        players.append(new_player)
-        new_player = Player(4, "test5", 0, False, 0, 0)
-        players.append(new_player)
-        new_player = Player(5, "test6", 0, False, 0, 0)
-        players.append(new_player)
-        new_player = Player(6, "test7", 0, False, 0, 0)
-        players.append(new_player)
-        new_player = Player(7, "test8", 0, False, 0, 0)
         players.append(new_player)
 
         self.assertEqual(tt.name_width(players), 16)
@@ -183,4 +164,3 @@ class TestMethods(unittest.TestCase):
         self.assertEqual(tt.sort_played(players), )
 if __name__ == '__main__':
     unittest.main()
-
