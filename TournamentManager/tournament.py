@@ -333,7 +333,7 @@ def input_players():
     while no_of_players > 8 or no_of_players < 3:
         try:
             no_of_players = int(input("How many players (between 3 and 8)? "))
-            if no_of_players > 5 or no_of_players < 1:
+            if no_of_players > 8 or no_of_players < 3:
                 print("Input a number between 3 and 8")
         except ValueError:
             print("Please type in a number")
