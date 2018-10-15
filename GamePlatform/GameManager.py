@@ -34,6 +34,9 @@ class GameManager:
         self.phase = 1
         self.step_count = 0
 
+        self.phase = 1
+        self.step_count = 0
+
     def start_game(self):
         winner = self.game_step()
         self.renderer.render_winner(winner)
