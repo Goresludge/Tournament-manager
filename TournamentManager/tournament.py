@@ -36,29 +36,6 @@ class Player:
         self.games_played += 1
 
 
-def simulate_game(list_input):
-
-    a = list_input[0][0]
-    b = list_input[1][0]
-
-    print("Next game will be between", players[a].name, "and", players[b].name+"!")
-
-    if random.randint(0, 10) == 7:
-        # gives player_no
-        print("It's a draw between", players[a].name, "and", players[b].name+"!")
-        players[a].update_player(1)
-        players[b].update_player(1)
-        winner = b
-    else:
-        shuffle(list_input)
-        winner = list_input[0][0]
-        loser = list_input[1][0]
-        players[winner].update_player(3)
-        players[loser].update_player(0)
-        print(players[winner].name, "won!")
-    return players[winner]
-
-
 # Next Game Round Robin
 def next_game_rr(num):
     # m_list = []
@@ -151,14 +128,13 @@ def print_t_table(m_list, list_input):
     if(list_input == 5):
         print("\n##########\n")
         print(players[0].name)
-        print("-VS-".ljust(max_width*2), m_list[0])
-        print(players[1].name+"\n\n")
-        print("-VS-".rjust((max_width*2)+6)+m_list[2].rjust(max_width+1))
+        print("-VS-".ljust(max_width), m_list[0])
+        print(players[1].name+"\n")
+        print("-VS-".rjust(max_width+6)+m_list[2].rjust(max_width+3)+"\n")
         print(players[2].name)
-        print("-VS-".ljust(max_width), m_list[1])
-        print(players[3].name)
-        print("-VS-".rjust(max_width+6)+m_list[3].rjust(max_width)+"\n")
-        print(players[4].name, players[4].name.rjust(max_width))
+        print("-VS-".ljust(max_width), m_list[1],"-VS-".rjust(max_width+3),m_list[3].rjust(5))
+        print(players[3].name+"\n")
+        print(players[4].name, players[4].name.rjust(max_width*2+2))
         print("\n##########\n")
     if(list_input == 6):
         print("\n##########\n")
@@ -321,7 +297,7 @@ def select_cpu_level():
 
 def select_game_type():
     selected_mode = 0
-    while selected_mode > 6 or selected_mode < 1:
+    while selected_mode > 5 or selected_mode < 1:
         try:
             selected_mode = int(input("Input mode:"))
             if selected_mode > 5 or selected_mode < 1:
@@ -387,25 +363,6 @@ def start_menu():
         new_player_class(no_of_players, mode)
         winner = elim_tourney(no_of_players)
         print(winner[0][1], "won the tournament!")
-    if mode == 6:
-        # Just a test mode
-        new_player = Player(0, "Test1", 0, False, 0, 0)
-        players.append(new_player)
-        new_player = Player(1, "TestingALongName", 0, False, 0, 0)
-        players.append(new_player)
-        new_player = Player(2, "test3", 0, False, 0, 0)
-        players.append(new_player)
-        new_player = Player(3, "test4", 0, False, 0, 0)
-        players.append(new_player)
-        new_player = Player(4, "test5", 0, False, 0, 0)
-        players.append(new_player)
-        new_player = Player(5, "test6", 0, False, 0, 0)
-        players.append(new_player)
-        new_player = Player(6, "test7", 0, False, 0, 0)
-        players.append(new_player)
-        new_player = Player(7, "test8", 0, False, 0, 0)
-        players.append(new_player)
-        elim_tourney(8)
 
 
 players = []

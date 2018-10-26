@@ -15,7 +15,7 @@ class StdinController(Controller):
         if phase == 2:
             move = self.get_input_phase2(board)
 
-        if(move != 0):            
+        if(move != 0):
             if move is not None:
                 self.perform_move(board, move)
 
