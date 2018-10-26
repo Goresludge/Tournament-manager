@@ -1,3 +1,3 @@
 # Tournament-manager
 
-requires python 3+
+requires python 3.7
