@@ -65,6 +65,12 @@ class GameManager:
             self.renderer.print_player_turn(current_player)
 
             move = current_player.controller.make_move(self.board, self.phase)
+            if(move == 0):
+                if(self.step_count % 2 == 0):
+                    current_player = self.players[(self.step_count % len(self.players))+1]
+                else:
+                    current_player = self.players[(self.step_count % len(self.players))-1]
+                return current_player
             n_mills = detect_mill(self.board, move)
             if n_mills > 0:
                 self.renderer.begin_render()
