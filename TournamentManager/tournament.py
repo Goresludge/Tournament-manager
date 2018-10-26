@@ -98,7 +98,7 @@ def play_next_round(player_list, total_games, table_list, num):
             print_t_table(table_list, num)
             total_games = total_games + 1
             next_round.append(players[winner[0]])
-        except:
+        except IndexError:
             next_round.append(players[player_list[i][0]])
         i = i+2
         j += 1
